@@ -1,0 +1,39 @@
+<aura:component controller="samplePagerCtrl">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="Accounts" type="Account[]"/>
+    <aura:attribute name="page" type="integer" description="using for store page Number"/>
+    <aura:attribute name="pages" type="integer" description="using for store All Pages page Number"/>
+    <aura:attribute name="total" type="integer" description="total records count store "/>
+    <aura:attribute name="recordSize" type="integer" default="10"/>
+    
+    <div class="slds-m-around_small">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-align_absolute-center">            
+                <lightning:button disabled="{!v.page == 1}" variant="brand" label="Previous Page" onclick="{! c.navigate }" />            
+                <lightning:button disabled="{!v.page == v.pages}" aura:id="previousPage" variant="brand" label="Next Page" onclick="{! c.navigate }" />
+            </div>
+            <p class="slds-page-header__title slds-truncate">{!v.total} Accounts • page {!v.page} / {!v.pages}</p>
+        </div>
+        
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Name">Account Name</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    <aura:iteration items="{!v.Accounts}" var="account">
+                            <tr>   
+                                <td>
+                                        <c:PopUpRecord paccount= "{!account}"/>
+                                </td>  
+                            </tr>
+                     </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+</aura:component>
